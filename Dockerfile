@@ -1,8 +1,8 @@
 FROM python:3.9
 USER root
 
-RUN /usr/local/bin/python -m pip install --upgrade pip && \
-    pip install sqlite3 requests
+RUN /usr/local/bin/python -m pip install --upgrade pip
+RUN pip install db-sqlite3 requests pytelegrambotapi 
 
 COPY ./project /project
 WORKDIR project

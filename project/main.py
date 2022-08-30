@@ -8,11 +8,13 @@ import sqlite3
 import os
 import config
 
+token_number = int(os.environ.get('TOK_NUM'))
+print('TOK_NUM', token_number)
 
 import telebot
 from telebot import types
 
-bot = telebot.TeleBot(config.TOKEN)
+bot = telebot.TeleBot(config.TOKEN[token_number])
 
 
 admin_max = config.ADMIN_MAX

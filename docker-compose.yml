@@ -8,11 +8,10 @@ services:
       context: .
     volumes:
       - ./project:/project
-    # ports:
-    #   - '0.0.0.0:3302:3306'
+    environment:
+      - TOK_NUM=1
     networks:
       - telegram-bot-dev
-
 
 networks:
   telegram-bot-dev:
