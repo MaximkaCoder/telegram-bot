@@ -1,8 +1,8 @@
 version: '3.6'
 
 services:
-  telegram-bot:
-    container_name: telegram-bot
+  telegram-bot-dev:
+    container_name: telegram-bot-dev
     image: python:telegram-bot-dev
     build:
       context: .
