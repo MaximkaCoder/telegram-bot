@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+  telegram-bot-gh-master:
+    container_name: telegram-bot-gh-master
+    image: telegram-bot:master
+    environment:
+      - TOK_NUM=0
+    networks:
+      - telegram-bot
+
+networks:
+  telegram-bot:
+    name: telegram-bot
+    driver: bridge
+    external: true
