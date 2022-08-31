@@ -1,0 +1,53 @@
+name: "Deploy master main server"
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${{ github.event.repository.name }}:master
+
+  upload:
+    needs: test-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Upload changes to remote server
+        run: |
+          mkdir ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_github
+          chmod 600 ~/.ssh/id_github
+          rsync -avzr --delete -e "ssh -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/github/${{ github.event.repository.name }}-master/
+          rm ~/.ssh/id_github
+
+  restart:
+    needs: upload
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rebuild and restart docker container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # WARNING!
+          # ONLY GLOBAL environment variables should be used in commands, as local environment variables will NOT BE FOUND on the remote server
+          #
+          # success:
+          #   script:
+          #     docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
+          #
+          # error:
+          #   env:
+          #     docker_rep_name: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
+          #   ...
+          #   script:
+          #     docker pull ${docker_rep_name}:latest
+          script: . /var/www/github/${{ github.event.repository.name }}-master/etc/scripts/clear-start-master.sh
