@@ -50,4 +50,4 @@ jobs:
           #   ...
           #   script:
           #     docker pull ${docker_rep_name}:latest
-          script: . /var/www/github/${{ github.event.repository.name }}-master/etc/scripts/clear-start-master.sh
+          script: . /var/www/github/${{ github.event.repository.name }}-master/.github/scripts/clear-start-master.sh
