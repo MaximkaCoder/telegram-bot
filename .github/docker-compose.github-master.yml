@@ -13,4 +13,3 @@ networks:
   telegram-bot:
     name: telegram-bot
     driver: bridge
-    external: true
