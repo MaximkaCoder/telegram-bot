@@ -7,12 +7,11 @@ from datetime import time
 import sqlite3
 import os
 import config
-
-token_number = int(os.environ.get('TOK_NUM'))
-print('TOK_NUM', token_number)
-
 import telebot
 from telebot import types
+
+token_number = int(os.environ.get('TOK_NUM'))
+# print('TOK_NUM', token_number)
 
 bot = telebot.TeleBot(config.TOKEN[token_number])
 
@@ -433,8 +432,6 @@ def profilee5(message):
     nums = int(datetime.utcnow().isocalendar()[1])
     print(nums)
 
-    nums += 1
-
     t = time(12, 00, 00).strftime("%H:%M:%S")
     z = datetime.now().strftime("%H:%M:%S")
     print(t)
@@ -449,21 +446,21 @@ def profilee5(message):
     if date == 1 and z < t:
         profile(message)
     elif date == 2 and z < t:
-        profile1(message)
+        profile1(message, nums)
     elif date == 3 and z < t:
-        profile2(message, nums)
+        profile2(message)
     elif date == 4 and z < t:
         profile3(message, nums)
     elif date == 5 and z < t:
-        profile4(message)
+        profile4(message, nums)
     elif date == 1 and z > t:
-        profile1(message)
+        profile1(message, nums)
     elif date == 2 and z > t:
-        profile2(message, nums)
+        profile2(message)
     elif date == 3 and z > t:
         profile3(message, nums)
     elif date == 4 and z > t:
-        profile4(message)
+        profile4(message, nums)
     elif date == 5 and z > t:
         profile(message)
     elif date == 6 or date == 7:
@@ -471,106 +468,247 @@ def profilee5(message):
 
 
 def profile(message):
-    bot.send_message(message.chat.id, "*ПОНЕДЕЛЬНИК*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Пара отсутствует")
-    bot.send_message(message.chat.id, "2. Языки ООП | ЛЕКЦИЯ | 308Ф")
-    bot.send_message(message.chat.id, "3. Базы данних | ЛЕКЦИЯ | 308Ф")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+    bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|        ПОНЕДЕЛЬНИК        |
++---------------------+-----+
+|          ПАРЫ       | ТИП |
++---------------------+-----+
+|1.Теория проэкт. ЭВМ | ЛЕК |
+|2.Теория проэкт. ЭВМ | ЛАБ |
+|3.Компьютерные сети  | ЛАБ |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
-def profile1(message):
-    bot.send_message(message.chat.id, "*ВТОРНИК*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Физра")
-    bot.send_message(message.chat.id, "2. Выборочный гуманитарный предмет | ПРАКТИКА")
-    bot.send_message(message.chat.id, "3. Языки ООП | ПРАКТИКА | 907Ф")
-    bot.send_message(message.chat.id, "4. Компьютерная электроника | ПРАКТИКА | 811Ф")
-
-
-def profile2(message, nums):
+def profile1(message, nums):
     if (nums % 2) == 0:
-        bot.send_message(message.chat.id, "*СРЕДА*", reply_markup=markup7, parse_mode="Markdown")
-        bot.send_message(message.chat.id, "1. Выборочный гуманитарный предмет | ЛЕКЦИЯ")
-        bot.send_message(message.chat.id, "2. Компьютерная электроника | ЛЕКЦИЯ | 811Ф")
-        bot.send_message(message.chat.id, "3. Пара отсутствует")
-        bot.send_message(message.chat.id, "4. Пара отсутствует")
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ВТОРНИК          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.Вычисл. системы    | ЛАБ |
+|2.Выборчая дисц.     | ЛЕК |
+|3.СПЗ                | ЛЕК |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
     else:
-        bot.send_message(message.chat.id, "*СРЕДА*", reply_markup=markup7, parse_mode="Markdown")
-        bot.send_message(message.chat.id, "1. Выборочный гуманитарный предмет | ЛЕКЦИЯ")
-        bot.send_message(message.chat.id, "2. Компьютерная электроника | ЛЕКЦИЯ | 811Ф")
-        bot.send_message(message.chat.id, "3. Теория информации и кодирования | ЛЕКЦИЯ | 308Ф")
-        bot.send_message(message.chat.id, "4. Пара отсутствует")
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ВТОРНИК          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.Пара отсутствует   |  -  |
+|2.Выборчая дисц.     | ЛЕК |
+|3.Комп. сети         | ЛЕК |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
+
+
+def profile2(message):
+    bot.send_message(message.chat.id, """<pre>
++----------------------------+
+|           СРЕДА            |
++----------------------+-----+
+|         ПАРЫ         | ТИП |
++----------------------+-----+
+|1.Выборчая дисц.      | ПР  |
+|2.СПЗ                 | ЛЕК |
+|3.Программ. моб. устр.| ЛЕК |
+|4.Пара отсутствует    |  -  |
++----------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
 def profile3(message, nums):
     if (nums % 2) == 0:
-        bot.send_message(message.chat.id, "*ЧЕТВЕРГ*", reply_markup=markup7, parse_mode="Markdown")
-        bot.send_message(message.chat.id, "1. Пара отсутствует")
-        bot.send_message(message.chat.id, "2. Пара отсутствует")
-        bot.send_message(message.chat.id, "3. Архитектура компьютеров | ПРАКТИКА | 811Ф")
-        bot.send_message(message.chat.id, "4. Базы данных | ПРАКТИКА | 1008Ф")
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ЧЕТВЕРГ          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.СПЗ                | ЛАБ |
+|2.Фин. грамотность   | ЛЕК |
+|3.Комп. сети         | ЛАБ |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
     else:
-        bot.send_message(message.chat.id, "*ЧЕТВЕРГ*", reply_markup=markup7, parse_mode="Markdown")
-        bot.send_message(message.chat.id, "1. Пара отсутствует")
-        bot.send_message(message.chat.id, "2. Философия | ПРАКТИКА | 201Ф")
-        bot.send_message(message.chat.id, "3. Базы данных | ПРАКТИКА | 1008Ф")
-        bot.send_message(message.chat.id, "4. Теория информации и кодирования | ПРАКТИКА | 910Ф")
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ЧЕТВЕРГ          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.СПЗ                | ЛАБ |
+|2.Фин. грамотность   | ЛЕК |
+|3.Фин. грамотность   | ПР  |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
-def profile4(message):
-    bot.send_message(message.chat.id, "*ПЯТНИЦА*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Физра")
-    bot.send_message(message.chat.id, "2. Философия | ЛЕКЦИИ | 233ГУК")
-    bot.send_message(message.chat.id, "3. Архитектура компьютеров | ЛЕКЦИИ | 308Ф")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+def profile4(message, nums):
+    if (nums % 2) == 0:
+        bot.send_message(message.chat.id, """<pre>
++----------------------------+
+|          ПЯТНИЦА           |
++----------------------+-----+
+|         ПАРЫ         | ТИП |
++----------------------+-----+
+|1.Программ. моб. устр.| ЛАБ |
+|2.Вычисл. системы     | ЛЕК |
+|3.Комп. сети          | ЛЕК |
+|4.Физра               |  -  |
++----------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
+    else:
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ПЯТНИЦА          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.Пара отсутствует   |  -  |
+|2.Вычисл. системы    | ЛЕК |
+|3.Комп. сети         | ЛЕК |
+|4.Физра              |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
 @bot.message_handler(func=lambda message: message.text == "Полное расписание 201")
 def timetable(message):
-    profil(message)
-    profil1(message)
-    profil2(message)
-    profil3(message)
-    profil4(message)
+    nums = int(datetime.utcnow().isocalendar()[1])
 
+    profil(message)
+    profil1(message, nums)
+    profil2(message)
+    profil3(message, nums)
+    profil4(message, nums)
 
 def profil(message):
-    bot.send_message(message.chat.id, "*ПОНЕДЕЛЬНИК*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Пара отсутствует")
-    bot.send_message(message.chat.id, "2. Языки ООП | ЛЕКЦИЯ | 308Ф")
-    bot.send_message(message.chat.id, "3. Базы данних | ЛЕКЦИЯ | 308Ф")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+    bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|        ПОНЕДЕЛЬНИК        |
++---------------------+-----+
+|          ПАРЫ       | ТИП |
++---------------------+-----+
+|1.Теория проэкт. ЭВМ | ЛЕК |
+|2.Теория проэкт. ЭВМ | ЛАБ |
+|3.Компьютерные сети  | ЛАБ |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
-def profil1(message):
-    bot.send_message(message.chat.id, "*ВТОРНИК*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Физра")
-    bot.send_message(message.chat.id, "2. Выборочный гуманитарный предмет | ПРАКТИКА")
-    bot.send_message(message.chat.id, "3. Языки ООП | ПРАКТИКА | 907Ф")
-    bot.send_message(message.chat.id, "4. Компьютерная электроника | ПРАКТИКА | 811Ф")
+def profil1(message, nums):
+    if (nums % 2) == 0:
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ВТОРНИК          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.Вычисл. системы    | ЛАБ |
+|2.Выборчая дисц.     | ЛЕК |
+|3.СПЗ                | ЛЕК |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
+    else:
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ВТОРНИК          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.Пара отсутствует   |  -  |
+|2.Выборчая дисц.     | ЛЕК |
+|3.Комп. сети         | ЛЕК |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
 def profil2(message):
-    bot.send_message(message.chat.id, "*СРЕДА*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Выборочный гуманитарный предмет | ЛЕКЦИЯ")
-    bot.send_message(message.chat.id, "2. Компьютерная электроника | ЛЕКЦИЯ | 811Ф")
-    bot.send_message(message.chat.id, "3. Теория информации и кодирования(н/ч) / Пара отсутствует(ч) | ЛЕКЦИЯ | 308Ф(н/ч)")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+    bot.send_message(message.chat.id, """<pre>
++----------------------------+
+|           СРЕДА            |
++----------------------+-----+
+|         ПАРЫ         | ТИП |
++----------------------+-----+
+|1.Выборчая дисц.      | ПР  |
+|2.СПЗ                 | ЛЕК |
+|3.Программ. моб. устр.| ЛЕК |
+|4.Пара отсутствует    |  -  |
++----------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
-def profil3(message):
-    bot.send_message(message.chat.id, "*ЧЕТВЕРГ*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Пара отсутствует")
-    bot.send_message(message.chat.id, "2. Пара отсутствует(н/ч) / Философия(ч) | ПРАКТИКА | 201Ф(ч)")
-    bot.send_message(message.chat.id, "3. Теория информации и кодирования(н/ч) / Архитектура компьютеров(ч) | ПРАКТИКА | 910Ф(н/ч) / 811Ф(ч)")
-    bot.send_message(message.chat.id, "4. Базы данных | ПРАКТИКА | 1008Ф")
+def profil3(message, nums):
+    if (nums % 2) == 0:
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ЧЕТВЕРГ          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.СПЗ                | ЛАБ |
+|2.Фин. грамотность   | ЛЕК |
+|3.Комп. сети         | ЛАБ |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
+    else:
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ЧЕТВЕРГ          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.СПЗ                | ЛАБ |
+|2.Фин. грамотность   | ЛЕК |
+|3.Фин. грамотность   | ПР  |
+|4.Пара отсутствует   |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
-def profil4(message):
-    bot.send_message(message.chat.id, "*ПЯТНИЦА*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Физра")
-    bot.send_message(message.chat.id, "2. Философия | ЛЕКЦИИ | 233ГУК")
-    bot.send_message(message.chat.id, "3. Архитектура компьютеров | ЛЕКЦИИ | 308Ф")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+def profil4(message, nums):
+    if (nums % 2) == 0:
+        bot.send_message(message.chat.id, """<pre>
++----------------------------+
+|          ПЯТНИЦА           |
++----------------------+-----+
+|         ПАРЫ         | ТИП |
++----------------------+-----+
+|1.Программ. моб. устр.| ЛАБ |
+|2.Вычисл. системы     | ЛЕК |
+|3.Комп. сети          | ЛЕК |
+|4.Физра               |  -  |
++----------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
+    else:
+        bot.send_message(message.chat.id, """<pre>
++---------------------------+
+|          ПЯТНИЦА          |
++---------------------+-----+
+|         ПАРЫ        | ТИП |
++---------------------+-----+
+|1.Пара отсутствует   |  -  |
+|2.Вычисл. системы    | ЛЕК |
+|3.Комп. сети         | ЛЕК |
+|4.Физра              |  -  |
++---------------------+-----+
+</pre>""", reply_markup=markup7, parse_mode="HTML")
 
 
 @bot.message_handler(func=lambda message: message.text == "АМ202" and message.chat.type == 'private')
@@ -581,8 +719,6 @@ def profile5(message):
     nums = int(datetime.utcnow().isocalendar()[1])
     print(nums)
 
-    nums += 1
-
     print(t)
     print(z)
     if z > t:
@@ -595,21 +731,21 @@ def profile5(message):
     if date == 1 and z < t:
         prfile(message)
     elif date == 2 and z < t:
-        prfile1(message)
+        prfile1(message, nums)
     elif date == 3 and z < t:
-        prfile2(message, nums)
+        prfile2(message)
     elif date == 4 and z < t:
         prfile3(message, nums)
     elif date == 5 and z < t:
-        prfile4(message)
+        prfile4(message, nums)
     elif date == 1 and z > t:
-        prfile1(message)
+        prfile1(message, nums)
     elif date == 2 and z > t:
-        prfile2(message, nums)
+        prfile2(message)
     elif date == 3 and z > t:
         prfile3(message, nums)
     elif date == 4 and z > t:
-        prfile4(message)
+        prfile4(message, nums)
     elif date == 5 and z > t:
         prfile(message)
     elif date == 6 or date == 7:
@@ -618,105 +754,128 @@ def profile5(message):
 
 def prfile(message):
     bot.send_message(message.chat.id, "*ПОНЕДЕЛЬНИК*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Пара отсутствует")
-    bot.send_message(message.chat.id, "2. Языки ООП | ЛЕКЦИЯ | 308Ф")
-    bot.send_message(message.chat.id, "3. Базы данних | ЛЕКЦИЯ | 308Ф")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+    bot.send_message(message.chat.id, "1.Теория проэкт. ЭВМ    | ЛЕК.\n\n"
+                                      "2.Компьютерные сети   | ЛАБ.\n\n"
+                                      "3.Теория проэкт. ЭВМ   | ЛАБ.\n\n"
+                                      "4.Пара отсутствует")
 
 
-def prfile1(message):
+def prfile1(message, nums):
     bot.send_message(message.chat.id, "*ВТОРНИК*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Физра")
-    bot.send_message(message.chat.id, "2. Выборочный гуманитарный предмет | ПРАКТИКА")
-    bot.send_message(message.chat.id, "3. Компьютерная электроника | ПРАКТИКА | 811Ф")
-    bot.send_message(message.chat.id, "4. Языки ООП | ПРАКТИКА | 907Ф")
 
-
-def prfile2(message, nums):
     if (nums % 2) == 0:
-        bot.send_message(message.chat.id, "*СРЕДА*", reply_markup=markup7, parse_mode="Markdown")
-        bot.send_message(message.chat.id, "1. Выборочный гуманитарный предмет | ЛЕКЦИЯ")
-        bot.send_message(message.chat.id, "2. Компьютерная электроника | ЛЕКЦИЯ | 811Ф")
-        bot.send_message(message.chat.id, "3. Пара отсутствует")
-        bot.send_message(message.chat.id, "4. Пара отсутствует")
+        bot.send_message(message.chat.id, "1.Пара отсутствует\n\n"
+                                          "2.Выборчая дисц.   | ЛЕК.\n\n"
+                                          "3.СПЗ                      | ЛЕК.\n\n"
+                                          "4.Пара отсутствует")
     else:
-        bot.send_message(message.chat.id, "*СРЕДА*", reply_markup=markup7, parse_mode="Markdown")
-        bot.send_message(message.chat.id, "1. Выборочный гуманитарный предмет | ЛЕКЦИЯ")
-        bot.send_message(message.chat.id, "2. Компьютерная электроника | ЛЕКЦИЯ | 811Ф")
-        bot.send_message(message.chat.id, "3. Теория информации и кодирования | ЛЕКЦИЯ | 308Ф")
-        bot.send_message(message.chat.id, "4. Пара отсутствует")
+        bot.send_message(message.chat.id, "1.Вычисл. системы  | ЛАБ.\n\n"
+                                          "2.Выборчая дисц.   | ЛЕК.\n\n"
+                                          "3.Комп. сети           | ЛЕК.\n\n"
+                                          "4.Пара отсутствует")
+
+
+def prfile2(message):
+    bot.send_message(message.chat.id, "*СРЕДА*", reply_markup=markup7, parse_mode="Markdown")
+    bot.send_message(message.chat.id, "1.Выборчая дисц.           | ПР.\n\n"
+                                      "2.СПЗ                             | ЛЕК.\n\n"
+                                      "3.Программ. моб. устр. | ЛЕК.\n\n"
+                                      "4.Пара отсутствует")
 
 
 def prfile3(message, nums):
+    bot.send_message(message.chat.id, "*ЧЕТВЕРГ*", reply_markup=markup7, parse_mode="Markdown")
     if (nums % 2) == 0:
-        bot.send_message(message.chat.id, "*ЧЕТВЕРГ*", reply_markup=markup7, parse_mode="Markdown")
-        bot.send_message(message.chat.id, "1. Пара отсутствует")
-        bot.send_message(message.chat.id, "2. Пара отсутствует(н/ч) / Философия(ч) | ПРАКТИКА | 201Ф(ч)")
-        bot.send_message(message.chat.id, "3. Архитектура компьютеров | ПРАКТИКА | 811Ф")
-        bot.send_message(message.chat.id, "4. Базы данных | ПРАКТИКА | 1008Ф")
+        bot.send_message(message.chat.id, "1.Пара отсутствует\n\n"
+                                          "2.Фин. грамотность  | ЛЕК.\n\n"
+                                          "3.Фин. грамотность  | ПР.\n\n"
+                                          "4.СПЗ                         | ЛАБ.")
     else:
-        bot.send_message(message.chat.id, "*ЧЕТВЕРГ*", reply_markup=markup7, parse_mode="Markdown")
-        bot.send_message(message.chat.id, "1. Пара отсутствует")
-        bot.send_message(message.chat.id, "2. Пара отсутствует(н/ч) / Философия(ч) | ПРАКТИКА | 201Ф(ч)")
-        bot.send_message(message.chat.id, "3. Теория информации и кодирования | ПРАКТИКА | 910Ф")
-        bot.send_message(message.chat.id, "4. Базы данных | ПРАКТИКА | 1008Ф")
+        bot.send_message(message.chat.id, "1.СПЗ                         | ЛАБ.\n\n"
+                                          "2.Фин. грамотность  | ЛЕК.\n\n"
+                                          "3.Комп. сети             | ЛАБ.\n\n"
+                                          "4.СПЗ                         | ЛАБ.")
 
 
-def prfile4(message):
+def prfile4(message, nums):
     bot.send_message(message.chat.id, "*ПЯТНИЦА*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Физра")
-    bot.send_message(message.chat.id, "2. Философия | ЛЕКЦИИ | 233ГУК")
-    bot.send_message(message.chat.id, "3. Архитектура компьютеров | ЛЕКЦИИ | 308Ф")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
-
+    if (nums % 2) == 0:
+        bot.send_message(message.chat.id, "1.Пара отсутствует\n\n"
+                                          "2.Вычисл. системы       | ЛЕК.\n\n"
+                                          "3.Комп. сети                 | ЛЕК.\n\n"
+                                          "4.Физра")
+    else:
+        bot.send_message(message.chat.id, "1.Программ. моб. устр. | ЛАБ\n\n"
+                                          "2.Вычисл. системы    | ЛЕК.\n\n"
+                                          "3.Комп. сети              | ЛЕК.\n\n"
+                                          "4.Физра")
 
 @bot.message_handler(func=lambda message: message.text == "Полное расписание 202")
 def timetable(message):
     prfil(message)
-    prfil1(message)
+    prfil1(message, nums)
     prfil2(message)
-    prfil3(message)
-    prfil4(message)
+    prfil3(message, nums)
+    prfil4(message, nums)
 
 
 def prfil(message):
     bot.send_message(message.chat.id, "*ПОНЕДЕЛЬНИК*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Пара отсутствует")
-    bot.send_message(message.chat.id, "2. Языки ООП | ЛЕКЦИЯ | 308Ф")
-    bot.send_message(message.chat.id, "3. Базы данних | ЛЕКЦИЯ | 308Ф")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+    bot.send_message(message.chat.id, "1.Теория проэкт. ЭВМ    | ЛЕК.\n\n"
+                                      "2.Компьютерные сети   | ЛАБ.\n\n"
+                                      "3.Теория проэкт. ЭВМ   | ЛАБ.\n\n"
+                                      "4.Пара отсутствует")
 
 
-def prfil1(message):
+def prfil1(message, nums):
     bot.send_message(message.chat.id, "*ВТОРНИК*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Физра")
-    bot.send_message(message.chat.id, "2. Выборочный гуманитарный предмет | ПРАКТИКА")
-    bot.send_message(message.chat.id, "3. Компьютерная электроника | ПРАКТИКА | 811Ф")
-    bot.send_message(message.chat.id, "4. Языки ООП | ПРАКТИКА | 907Ф")
+
+    if (nums % 2) == 0:
+        bot.send_message(message.chat.id, "1.Пара отсутствует\n\n"
+                                          "2.Выборчая дисц.   | ЛЕК.\n\n"
+                                          "3.СПЗ                      | ЛЕК.\n\n"
+                                          "4.Пара отсутствует")
+    else:
+        bot.send_message(message.chat.id, "1.Вычисл. системы  | ЛАБ.\n\n"
+                                          "2.Выборчая дисц.   | ЛЕК.\n\n"
+                                          "3.Комп. сети           | ЛЕК.\n\n"
+                                          "4.Пара отсутствует")
 
 
 def prfil2(message):
     bot.send_message(message.chat.id, "*СРЕДА*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Выборочный гуманитарный предмет | ЛЕКЦИЯ")
-    bot.send_message(message.chat.id, "2. Компьютерная электроника | ЛЕКЦИЯ | 811Ф")
-    bot.send_message(message.chat.id, "3. Теория информации и кодирования(н/ч) / Пара отсутствует(ч) | ЛЕКЦИЯ | 308Ф(н/ч)")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+    bot.send_message(message.chat.id, "1.Выборчая дисц.           | ПР.\n\n"
+                                      "2.СПЗ                             | ЛЕК.\n\n"
+                                      "3.Программ. моб. устр. | ЛЕК.\n\n"
+                                      "4.Пара отсутствует")
 
 
-def prfil3(message):
+def prfil3(message, nums):
     bot.send_message(message.chat.id, "*ЧЕТВЕРГ*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Пара отсутствует")
-    bot.send_message(message.chat.id, "2. Пара отсутствует(н/ч) / Философия(ч) | ПРАКТИКА | 201Ф(ч)")
-    bot.send_message(message.chat.id, "3. Теория информации и кодирования(н/ч) / Архитектура компьютеров(ч) | ПРАКТИКА | 910Ф(н/ч) / 811Ф(ч)")
-    bot.send_message(message.chat.id, "4. Базы данных | ПРАКТИКА | 1008Ф")
+    if (nums % 2) == 0:
+        bot.send_message(message.chat.id, "1.Пара отсутствует\n\n"
+                                          "2.Фин. грамотность  | ЛЕК.\n\n"
+                                          "3.Фин. грамотность  | ПР.\n\n"
+                                          "4.СПЗ                         | ЛАБ.")
+    else:
+        bot.send_message(message.chat.id, "1.СПЗ                         | ЛАБ.\n\n"
+                                          "2.Фин. грамотность  | ЛЕК.\n\n"
+                                          "3.Комп. сети             | ЛАБ.\n\n"
+                                          "4.СПЗ                         | ЛАБ.")
 
 
-def prfil4(message):
+def prfil4(message, nums):
     bot.send_message(message.chat.id, "*ПЯТНИЦА*", reply_markup=markup7, parse_mode="Markdown")
-    bot.send_message(message.chat.id, "1. Физра")
-    bot.send_message(message.chat.id, "2. Философия | ЛЕКЦИИ | 233ГУК")
-    bot.send_message(message.chat.id, "3. Архитектура компьютеров | ЛЕКЦИИ | 308Ф")
-    bot.send_message(message.chat.id, "4. Пара отсутствует")
+    if (nums % 2) == 0:
+        bot.send_message(message.chat.id, "1.Пара отсутствует\n\n"
+                                          "2.Вычисл. системы       | ЛЕК.\n\n"
+                                          "3.Комп. сети                 | ЛЕК.\n\n"
+                                          "4.Физра")
+    else:
+        bot.send_message(message.chat.id, "1.Программ. моб. устр. | ЛАБ\n\n"
+                                          "2.Вычисл. системы    | ЛЕК.\n\n"
+                                          "3.Комп. сети              | ЛЕК.\n\n"
+                                          "4.Физра")
 
 
 @bot.message_handler(func=lambda message: message.text == "📚Пары📚" and message.chat.type == 'private')

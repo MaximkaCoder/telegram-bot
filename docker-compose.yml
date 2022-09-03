@@ -9,7 +9,7 @@ services:
     volumes:
       - ./project:/project
     environment:
-      - TOK_NUM=1
+      - TOK_NUM=0
     networks:
       - telegram-bot-dev
 
