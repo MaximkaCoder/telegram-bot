@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 # !/usr/bin/python3.9
 import random
-from datetime import datetime
-from datetime import time
+from datetime import datetime, time
 import sqlite3
 import config
 import telebot
 from telebot import types
 import multiprocessing
 import time as tm
-import os
 
-token_number = int(os.environ.get('TOK_NUM'))
-bot = telebot.TeleBot(config.TOKEN[token_number])
+bot = telebot.TeleBot(config.TOKEN[0])
 
 admin_max = config.ADMIN_MAX
 admin_alina = config.ADMIN_ALINA
@@ -21,9 +18,9 @@ admin_vova = config.ADMIN_VOVA
 PRICE = types.LabeledPrice(label="Підписка на 1 місяць", amount=10*100)
 
 markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-item1 = types.KeyboardButton("📚Пари📚")
+item1 = types.KeyboardButton("📒Пари📒")
 item2 = types.KeyboardButton("‍🧑‍🎓Студенти🧑‍🎓")
-item3 = types.KeyboardButton("⌛Дзвоник⌛")
+item3 = types.KeyboardButton("🕛Дзвоник🕛")
 
 markup.row(item1, item2)
 markup.row(item3)
@@ -54,16 +51,13 @@ markup5 = types.ReplyKeyboardMarkup(resize_keyboard=True)
 item1 = types.KeyboardButton("Відмінити")
 markup5.add(item1)
 
-markup7 = types.ReplyKeyboardMarkup(resize_keyboard=True)
-item1 = types.KeyboardButton("Полное расписание 201")
-item = types.KeyboardButton("⬅НАЗАД")
-markup7.add(item1, item)
+markup7 = types.InlineKeyboardMarkup()
+btn4 = types.InlineKeyboardButton("Повний розклад", callback_data="5")
+markup7.add(btn4)
 
-markup8 = types.ReplyKeyboardMarkup(resize_keyboard=True)
-item1 = types.KeyboardButton("АМ201")
-item2 = types.KeyboardButton("АМ202")
-item3 = types.KeyboardButton("⬅НАЗАД")
-markup8.add(item1, item2, item3)
+markup8 = types.InlineKeyboardMarkup()
+btn5 = types.InlineKeyboardButton("Згорнути", callback_data="6")
+markup8.add(btn5)
 
 markup9 = types.ReplyKeyboardMarkup(resize_keyboard=True)
 item1 = types.KeyboardButton("Полное расписание 202")
@@ -78,6 +72,115 @@ markup13 = types.ReplyKeyboardMarkup(resize_keyboard=True)
 item = types.KeyboardButton("Відправити")
 item2 = types.KeyboardButton("⬅НАЗАД")
 markup13.add(item, item2)
+
+
+def get_schedule_am_201(day):
+    week = datetime.now().isocalendar().week + 1
+    if day == "Monday":
+        if week % 2 != 0:
+            return {
+                "07:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "09:35": "Системи реального часу-https://cutt.ly/4846uYf",
+                "11:25": "Системи реального часу-https://cutt.ly/4846uYf"
+            }
+        else:
+            return {
+                "07:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "09:35": "Системи реального часу-https://cutt.ly/4846uYf"
+            }
+
+    elif day == "Tuesday":
+        if week % 2 != 0:
+            return {
+                "07:45": "Конфліктологія-https://cutt.ly/G87qYD4",
+                "07:46": "Політологія-https://cutt.ly/v87wdvE",
+                "09:35": "Системи реального часу-https://cutt.ly/4846uYf",
+                "11:25": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF"
+            }
+        else:
+            return {
+                "07:45": "Конфліктологія-https://cutt.ly/187qLhf",
+                "07:46": "Політологія-https://cutt.ly/U87wxf2",
+                "09:35": "Системи реального часу-https://cutt.ly/4846uYf",
+                "11:25": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
+            }
+    elif day == "Wednesday":
+        return {
+            "07:45": "Проектування МПС-https://cutt.ly/T8FHVOF"
+        }
+    elif day == "Thursday":
+        if week % 2 != 0:
+            return {
+                "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "07:45": "Проектування МПС-https://cutt.ly/E8FH8CK",
+                "09:35": "Системи реального часу-https://cutt.ly/4846uYf"
+            }
+        else:
+            return {
+                "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "07:45": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh"
+            }
+    elif day == "Friday":
+        return {
+            "09:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
+        }
+    else:
+        return {}
+
+
+def get_schedule_am_202(day):
+    week = datetime.now().isocalendar().week + 1
+    if day == "Monday":
+        if week % 2 != 0:
+            return {
+                "07:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "09:35": "Системи реального часу-https://cutt.ly/4846uYf"
+            }
+        else:
+            return {
+                "07:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "09:35": "Системи реального часу-https://cutt.ly/4846uYf",
+                "11:25": "Системи реального часу-https://cutt.ly/4846uYf"
+            }
+    elif day == "Tuesday":
+        if week % 2 != 0:
+            return {
+                "07:45": "Конфліктологія-https://cutt.ly/G87qYD4",
+                "07:46": "Політологія-https://cutt.ly/v87wdvE",
+                "09:35": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "11:25": "Системи реального часу-https://cutt.ly/4846uYf"
+            }
+        else:
+            return {
+                "07:45": "Конфліктологія-https://cutt.ly/187qLhf",
+                "07:46": "Політологія-https://cutt.ly/U87wxf2",
+                "09:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF",
+                "11:25": "Системи реального часу-https://cutt.ly/4846uYf"
+            }
+    elif day == "Wednesday":
+        return {
+            "07:45": "Проектування МПС-https://cutt.ly/T8FHVOF"
+        }
+    elif day == "Thursday":
+        if week % 2 != 0:
+            return {
+                "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "07:45": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "09:35": "Системи реального часу-https://cutt.ly/4846uYf"
+            }
+        else:
+            return {
+                "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "07:45": "Проектування МПС-https://cutt.ly/e8FH6VR"
+            }
+
+    elif day == "Friday":
+        return {
+            "09:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
+        }
+    else:
+        return {}
+
 
 am_201_schedule_n_p = {
     1: """<pre>
@@ -136,20 +239,20 @@ am_201_schedule_n_p = {
 |     НЕПАРНИЙ ТИЖДЕНЬ      |
 +---------------------------+
 </pre>""",
-    5:"""<pre>
+    5: """<pre>
 +---------------------------+
 |         П'ятниця          |
 +---------------------+-----+
 |          ПАРИ       | ТИП |
 +---------------------+-----+
-|1.Теорія проект. ЕОМ | ЛЕК |
+|1.Пара відсутня      |  -  |
 |2.Пара відсутня      |  -  |
-|3.Пара відсутня      |  -  |
+|3.Теорія проект. ЕОМ | ЛЕК |
 |4.Фізичне виховання  |  -  |
 +---------------------+-----+
 |     НЕПАРНИЙ ТИЖДЕНЬ      |
 +---------------------------+
-</pre>""",
+</pre>"""
 }
 
 am_201_schedule_p = {
@@ -162,7 +265,7 @@ am_201_schedule_p = {
 |1.Пара відсутня      |  -  |
 |2.Міжмаш. взаємодія  | ЛЕК |
 |3.Сис. реальн. часу  | ЛЕК |
-|4.Сис. реальн. часу  | ЛАБ |
+|4.Пара відсутня      |  -  |
 +---------------------+-----+
 |       ПАРНИЙ ТИЖДЕНЬ      |
 +---------------------------+
@@ -203,26 +306,172 @@ am_201_schedule_p = {
 +---------------------+-----+
 |1.Комп. сис. шт. інт.| ЛЕК |
 |2.Комп. сис. шт. інт.| ЛАБ |
-|3.Сис. реальн. часу  | ЛЕК |
+|3.Пара відсутня      |  -  |
 |4.Пара відсутня      |  -  |
 +---------------------+-----+
 |       ПАРНИЙ ТИЖДЕНЬ      |
 +---------------------------+
 </pre>""",
-    5:"""<pre>
+    5: """<pre>
 +---------------------------+
 |         П'ятниця          |
 +---------------------+-----+
 |          ПАРИ       | ТИП |
 +---------------------+-----+
-|1.Теорія проект. ЕОМ | ЛЕК |
+|1.Пара відсутня      |  -  |
 |2.Пара відсутня      |  -  |
-|3.Пара відсутня      |  -  |
+|3.Теорія проект. ЕОМ | ЛЕК |
 |4.Фізичне виховання  |  -  |
 +---------------------+-----+
 |       ПАРНИЙ ТИЖДЕНЬ      |
 +---------------------------+
+</pre>"""
+}
+
+am_202_schedule_n_p = {
+    1: """<pre>
++---------------------------+
+|         ПОНЕДІЛОК         |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Пара відсутня      |  -  |
+|2.Міжмаш. взаємодія  | ЛЕК |
+|3.Сис. реальн. часу  | ЛЕК |
+|4.Пара відсутня      |  -  |
++---------------------+-----+
+|      НЕПАРНИЙ ТИЖДЕНЬ     |
++---------------------------+
 </pre>""",
+    2: """<pre>
++---------------------------+
+|          ВІВТОРОК         |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Пара відсутня      |  -  |
+|2.Вибіркова дисципл. |  ?  |
+|3.Міжмаш. взаємодія  | ЛАБ |
+|4.Сис. реальн. часу  | ЛАБ |
++---------------------+-----+
+|     НЕПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>""",
+    3: """<pre>
++---------------------------+
+|           СЕРЕДА          |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Вибіркова дисципл. |  ?  |
+|2.Проектування МПС   | ЛЕК |
+|3.Пара відсутня      |  -  |
+|4.Пара відсутня      |  -  |
++---------------------+-----+
+|     НЕПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>""",
+    4: """<pre>
++---------------------------+
+|           ЧЕТВЕР          |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Комп. сис. шт. інт.| ЛЕК |
+|2.Комп. сис. шт. інт.| ЛАБ |
+|3.Сис. реальн. часу  | ЛЕК |
+|4.Пара відсутня      |  -  |
++---------------------+-----+
+|     НЕПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>""",
+    5: """<pre>
++---------------------------+
+|         П'ятниця          |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Пара відсутня      |  -  |
+|2.Пара відсутня      |  -  |
+|3.Теорія проект. ЕОМ | ЛЕК |
+|4.Фізичне виховання  |  -  |
++---------------------+-----+
+|     НЕПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>"""
+}
+
+am_202_schedule_p = {
+    1: """<pre>
++---------------------------+
+|         ПОНЕДІЛОК         |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Пара відсутня      |  -  |
+|2.Міжмаш. взаємодія  | ЛЕК |
+|3.Сис. реальн. часу  | ЛЕК |
+|4.Сис. реальн. часу  | ЛАБ |
++---------------------+-----+
+|       ПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>""",
+    2: """<pre>
++---------------------------+
+|          ВІВТОРОК         |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Пара відсутня      |  -  |
+|2.Вибіркова дисципл. |  ?  |
+|3.Теорія проект. ЕОМ | ЛАБ |
+|4.Сис. реальн. часу  | ЛАБ |
++---------------------+-----+
+|       ПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>""",
+    3: """<pre>
++---------------------------+
+|           СЕРЕДА          |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Вибіркова дисципл. |  ?  |
+|2.Проектування МПС   | ЛЕК |
+|3.Пара відсутня      |  -  |
+|4.Пара відсутня      |  -  |
++---------------------+-----+
+|       ПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>""",
+    4: """<pre>
++---------------------------+
+|           ЧЕТВЕР          |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Комп. сис. шт. інт.| ЛЕК |
+|2.Проектування МПС   | ЛАБ |
+|3.Пара відсутня      |  -  |
+|4.Пара відсутня      |  -  |
++---------------------+-----+
+|       ПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>""",
+    5: """<pre>
++---------------------------+
+|         П'ятниця          |
++---------------------+-----+
+|          ПАРИ       | ТИП |
++---------------------+-----+
+|1.Пара відсутня      |  -  |
+|2.Пара відсутня      |  -  |
+|3.Теорія проект. ЕОМ | ЛЕК |
+|4.Фізичне виховання  |  -  |
++---------------------+-----+
+|       ПАРНИЙ ТИЖДЕНЬ      |
++---------------------------+
+</pre>"""
 }
 
 
@@ -237,7 +486,6 @@ def notification(message):
 
 def send_welcome(message):
     user_id = message.from_user.id
-
     con = sqlite3.connect("my.db")
     cursor = con.cursor()
 
@@ -341,6 +589,7 @@ def check_group(message):
 def pre_checkout_query(pre_checkout_q: types.PreCheckoutQuery):
     bot.answer_pre_checkout_query(int(pre_checkout_q.id), ok=True)
 
+
 @bot.message_handler(func=lambda message: message.text == "/pay")
 def pay(message):
     bot.send_invoice(message.chat.id,
@@ -367,19 +616,45 @@ def ui(message):
     bot.send_message(message.chat.id, text[fraz], reply_markup=markup)
 
 
-@bot.message_handler(func=lambda message: message.text == "📚Пари📚" and message.chat.type == 'private')
+@bot.message_handler(func=lambda message: message.text == "send" and message.chat.type == 'private')
+def send_mess(message):
+    bot.send_message(message.chat.id, "Отправляйте нужное сообщение!")
+    bot.register_next_step_handler(message, reg_message_news)
+
+
+def reg_message_news(message):
+    global mess
+    mess = message.text
+    if mess == "close":
+        bot.send_message(message.chat.id, "Скасувано!", reply_markup=markup)
+    else:
+        bot.send_message(message.chat.id, "Повідомлення відправлено!", reply_markup=markup)
+        con = sqlite3.connect("my.db")
+        cursor = con.cursor()
+        cursor.execute("SELECT user_id FROM users")
+        records = cursor.fetchall()
+
+        for us in records:
+            try:
+                bot.send_message(us[0], mess)
+            except:
+                pass
+        con.close()
+
+
+@bot.message_handler(func=lambda message: message.text == "📒Пари📒" and message.chat.type == 'private')
 def par(message):
     con = sqlite3.connect("my.db")
     cursor = con.cursor()
 
     day = datetime.now().isoweekday()
     week = datetime.now().isocalendar().week + 1
-    time_before_send = time(9, 00, 00).strftime("%H:%M:%S")
+    time_before_send = time(11, 00, 00).strftime("%H:%M:%S")
     time_now = datetime.now().strftime("%H:%M:%S")
 
-    if time_now > time_before_send and day != 5:
+    if time_now > time_before_send and day != 5 and day != 6 and day != 7:
         day += 1
-    elif (time_now > time_before_send) and (day == 5 or day == 6 or day == 7):
+    elif (time_now > time_before_send and day == 5) or (day == 6) or (day == 7):
         day = 1; week += 1
 
     user_id = message.from_user.id
@@ -387,17 +662,19 @@ def par(message):
     data = cursor.fetchone()
 
     if str(user_id) in str(data):
-        am_201_schedule_n_p.get(day)
         if week % 2 != 0:
-            bot.send_message(message.chat.id, am_201_schedule_n_p.get(day), reply_markup=markup, parse_mode='HTML')
+            bot.send_message(message.chat.id, am_201_schedule_n_p.get(day), reply_markup=markup7, parse_mode='HTML')
         else:
-            bot.send_message(message.chat.id, am_201_schedule_p.get(day), reply_markup=markup, parse_mode='HTML')
+            bot.send_message(message.chat.id, am_201_schedule_p.get(day), reply_markup=markup7, parse_mode='HTML')
 
     cursor.execute(f"SELECT user_id FROM users_202 WHERE user_id = {user_id}")
     data = cursor.fetchone()
 
     if str(user_id) in str(data):
-        bot.send_message(message.chat.id, "Тут буде розклад для групи АМ-202", reply_markup=markup)
+        if week % 2 != 0:
+            bot.send_message(message.chat.id, am_202_schedule_n_p.get(day), reply_markup=markup7, parse_mode='HTML')
+        else:
+            bot.send_message(message.chat.id, am_202_schedule_p.get(day), reply_markup=markup7, parse_mode='HTML')
 
 
 @bot.message_handler(func=lambda message: message.text == "‍🧑‍🎓Студенти🧑‍🎓" and message.chat.type == 'private')
@@ -405,20 +682,18 @@ def profile7(message):
     bot.send_message(message.chat.id, "Обери групу!", reply_markup=markup2)
 
 
-@bot.message_handler(func=lambda message: message.text == "⌛Дзвоник⌛" and message.chat.type == 'private')
+@bot.message_handler(func=lambda message: message.text == "🕛Дзвоник🕛" and message.chat.type == 'private')
 def profile9(message):
     bot.send_message(message.chat.id, """<pre>
-+-----------------------------+
-|           ДЗВІНКИ           |
-+--------------+--------------+
-| 1-а полупара | 2-а полупара |        
-+--------------+-------+------+
-|1. 8:00-8:45  |   8:50-9:35  |
-|2. 9:50-10:35 |  10:40-11:25 |
-|3.11:40-12:25 |  12:30-13:15 |        
-|4.13:30-14:15 |  14:20-15:05 |             
-+--------------+--------------+
-    </pre>""", reply_markup=markup, parse_mode="HTML")
++---------------------------+
+|          ДЗВІНКИ          |
++---------------------------+
+|1.      08:00 - 09:35      |
+|2.      09:50 - 11:25      |
+|3.      11:40 - 13:15      |
+|4.      13:30 - 15:05      |
++---------------------------+
+</pre>""", reply_markup=markup, parse_mode="HTML")
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -492,6 +767,74 @@ def callback_handler(call):
     elif call.data == "4":
         group = "AM-202"
         check_group(call.message)
+    elif call.data == "5":
+        day = datetime.now().isoweekday()
+        week = datetime.now().isocalendar().week + 1
+        user_id = call.message.chat.id
+        con = sqlite3.connect("my.db")
+        cursor = con.cursor()
+        full_schedule = ""
+
+        if day == 6 or day == 7:
+            week += 1
+
+        cursor.execute(f"SELECT user_id FROM users_201 WHERE user_id = {user_id}")
+        data = cursor.fetchone()
+        cursor.execute(f"SELECT user_id FROM users_202 WHERE user_id = {user_id}")
+        data_2 = cursor.fetchone()
+
+        if str(user_id) in str(data):
+            if week % 2 != 0:
+                for i in range(5):
+                    full_schedule += am_201_schedule_n_p.get(i + 1) + "\n"
+            else:
+                for i in range(5):
+                    full_schedule += am_201_schedule_p.get(i + 1) + "\n"
+        elif str(user_id) in str(data_2):
+            if week % 2 != 0:
+                for i in range(5):
+                    full_schedule += am_202_schedule_n_p.get(i + 1) + "\n"
+            else:
+                for i in range(5):
+                    full_schedule += am_202_schedule_p.get(i + 1) + "\n"
+
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                              text="<pre>" + full_schedule + "</pre>", reply_markup=markup8, parse_mode="HTML")
+    elif call.data == "6":
+        con = sqlite3.connect("my.db")
+        cursor = con.cursor()
+        day = datetime.now().isoweekday()
+        week = datetime.now().isocalendar().week + 1
+        time_before_send = time(11, 00, 00).strftime("%H:%M:%S")
+        time_now = datetime.now().strftime("%H:%M:%S")
+
+        if time_now > time_before_send and day != 5 and day != 6 and day != 7:
+            day += 1
+        elif (time_now > time_before_send and day == 5) or (day == 6) or (day == 7):
+            day = 1; week += 1
+
+        user_id = call.message.chat.id
+        cursor.execute(f"SELECT user_id FROM users_201 WHERE user_id = {user_id}")
+        data = cursor.fetchone()
+
+        if str(user_id) in str(data):
+            if week % 2 != 0:
+                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                      text=am_201_schedule_n_p.get(day), reply_markup=markup7, parse_mode="HTML")
+            else:
+                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                      text=am_201_schedule_p.get(day), reply_markup=markup7, parse_mode="HTML")
+
+        cursor.execute(f"SELECT user_id FROM users_202 WHERE user_id = {user_id}")
+        data = cursor.fetchone()
+
+        if str(user_id) in str(data):
+            if week % 2 != 0:
+                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                      text=am_202_schedule_n_p.get(day), reply_markup=markup7, parse_mode="HTML")
+            else:
+                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                                      text=am_202_schedule_p.get(day), reply_markup=markup7, parse_mode="HTML")
 
 
 @bot.message_handler(func=lambda message: message.text == "Я не знаю пароль" and message.chat.type == 'private')
@@ -506,7 +849,7 @@ def reg_mess_admin(message):
     if mess == "Відмінити":
         send_welcome(message)
     else:
-        id_from_user =message.from_user.id
+        id_from_user = message.from_user.id
         user_name = message.from_user.username
         bot.send_message(message.chat.id, "Запит відправлений! Очікуйте відповіді!")
         bot.send_message(admin_max, "Запит на пароль від: " + str(user_name) + "\n" + mess,
@@ -518,62 +861,65 @@ def reg_mess_admin(message):
 def solution_send(message):
     global id_from_user
     bot.send_message(message.chat.id, f"Користувачу з id {id_from_user} доступ відкритий!", reply_markup=markup)
-    bot.send_message(id_from_user, "Доступ відкритий! \nПароль: QWERTY20X", reply_markup=markup11)
+    bot.send_message(id_from_user, "Пароль: QWERTY20X", reply_markup=markup11)
 
 
-def get_schedule_am_201(day):
-    if day == "Monday":
-        return {
-            "07:45": "Міжмашинна взаємодія-???",
-            "09:35": "Системи реального часу-https://cutt.ly/d8EvFz9",
-            "11:25": "Системи реального часу-https://cutt.ly/d8EvFz9"
-        }
-    elif day == "Tuesday":
-        return {
-            "07:45": "Вибіркова дисципліна-???",
-            "09:35": "Системи реального часу-https://cutt.ly/d8EvFz9",
-            "11:25": "Міжмашинна взаємодія-???"
-        }
-    elif day == "Wednesday":
-        return {
-            "05:55": "Вибіркова дисципліна-???",
-            "07:45": "Проектування МПС-???"
-        }
-    elif day == "Thursday":
-        return {
-            "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
-            "07:45": "Проектування МПС-???",
-            "09:35": "Системи реального часу-https://cutt.ly/d8EvFz9"
-        }
-    elif day == "Friday":
-        return {
-            "09:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF",
-            "11:25": "Фізичне виховання-???"
-        }
-    elif day == "Saturday":
-        return {
-            "08:00": "Видумана дисципліна-https://cutt.ly/w8c7YiN",
-            "09:50": "Видумана дисципліна-???",
-            "11:40": "Видумана дисципліна-???"
-        }
-
-
-def starting_checking():
+def starting_checking_201():
     while True:
         current_time = tm.strftime("%H:%M")
         today = tm.strftime("%A")
         schedule_201 = get_schedule_am_201(today)
         if current_time in schedule_201:
+            con = sqlite3.connect("my.db")
+            cursor = con.cursor()
+            cursor.execute("SELECT user_id FROM users_201")
+            records = cursor.fetchall()
+
             subject = schedule_201[current_time].split("-")
-            bot.send_message(admin_max, f"Через 5 хвилин почнеться пара '{subject[0]}'!\nПосилання на пару: {subject[1]}", reply_markup=markup)
+            for us in records:
+                try:
+                    bot.send_message(us[0], f"Пара - {subject[0]}\nПосилання - {subject[1]}",
+                                     disable_web_page_preview=True, reply_markup=markup, parse_mode="HTML")
+                    tm.sleep(0.2)
+                except Exception:
+                    print("error send")
+
+            con.close()
+            tm.sleep(60)
+        tm.sleep(1)
+
+
+def starting_checking_202():
+    while True:
+        current_time = tm.strftime("%H:%M")
+        today = tm.strftime("%A")
+        schedule_202 = get_schedule_am_202(today)
+        if current_time in schedule_202:
+            con = sqlite3.connect("my.db")
+            cursor = con.cursor()
+            cursor.execute("SELECT user_id FROM users_202")
+            records = cursor.fetchall()
+
+            subject = schedule_202[current_time].split("-")
+            for us in records:
+                try:
+                    bot.send_message(us[0], f"Пара - {subject[0]}\nПосилання - {subject[1]}",
+                                     disable_web_page_preview=True, reply_markup=markup, parse_mode="HTML")
+                    tm.sleep(0.2)
+                except Exception:
+                    print("error send")
+
+            con.close()
             tm.sleep(60)
         tm.sleep(1)
 
 
 def main():
     try:
-        p = multiprocessing.Process(target=starting_checking, args=())
-        p.start()
+        p_1 = multiprocessing.Process(target=starting_checking_201, args=())
+        p_1.start()
+        p_2 = multiprocessing.Process(target=starting_checking_202, args=())
+        p_2.start()
         bot.infinity_polling(none_stop=True)
     except Exception:
         pass
