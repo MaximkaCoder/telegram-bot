@@ -79,50 +79,50 @@ def get_schedule_am_201(day):
     if day == "Monday":
         if week % 2 != 0:
             return {
-                "07:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
-                "09:35": "Системи реального часу-https://cutt.ly/4846uYf",
-                "11:25": "Системи реального часу-https://cutt.ly/4846uYf"
+                "06:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "08:35": "Системи реального часу-https://cutt.ly/4846uYf",
+                "10:25": "Системи реального часу-https://cutt.ly/4846uYf"
             }
         else:
             return {
-                "07:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
-                "09:35": "Системи реального часу-https://cutt.ly/4846uYf"
+                "06:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "08:35": "Системи реального часу-https://cutt.ly/4846uYf"
             }
 
     elif day == "Tuesday":
         if week % 2 != 0:
             return {
-                "07:45": "Конфліктологія-https://cutt.ly/G87qYD4",
-                "07:46": "Політологія-https://cutt.ly/v87wdvE",
-                "09:35": "Системи реального часу-https://cutt.ly/4846uYf",
-                "11:25": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF"
+                "06:45": "Конфліктологія-https://cutt.ly/G87qYD4",
+                "06:46": "Політологія-https://cutt.ly/v87wdvE",
+                "08:35": "Системи реального часу-https://cutt.ly/4846uYf",
+                "10:25": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF"
             }
         else:
             return {
-                "07:45": "Конфліктологія-https://cutt.ly/187qLhf",
-                "07:46": "Політологія-https://cutt.ly/U87wxf2",
-                "09:35": "Системи реального часу-https://cutt.ly/4846uYf",
-                "11:25": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
+                "06:45": "Конфліктологія-https://cutt.ly/187qLhf",
+                "06:46": "Політологія-https://cutt.ly/U87wxf2",
+                "08:35": "Системи реального часу-https://cutt.ly/4846uYf",
+                "10:25": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
             }
     elif day == "Wednesday":
         return {
-            "07:45": "Проектування МПС-https://cutt.ly/T8FHVOF"
+            "06:45": "Проектування МПС-https://cutt.ly/T8FHVOF"
         }
     elif day == "Thursday":
         if week % 2 != 0:
             return {
-                "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
-                "07:45": "Проектування МПС-https://cutt.ly/E8FH8CK",
-                "09:35": "Системи реального часу-https://cutt.ly/4846uYf"
+                "04:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "06:45": "Проектування МПС-https://cutt.ly/E8FH8CK",
+                "08:35": "Системи реального часу-https://cutt.ly/4846uYf"
             }
         else:
             return {
-                "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
-                "07:45": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh"
+                "04:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "08:45": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh"
             }
     elif day == "Friday":
         return {
-            "09:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
+            "08:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
         }
     else:
         return {}
@@ -133,50 +133,50 @@ def get_schedule_am_202(day):
     if day == "Monday":
         if week % 2 != 0:
             return {
-                "07:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
-                "09:35": "Системи реального часу-https://cutt.ly/4846uYf"
+                "06:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "08:35": "Системи реального часу-https://cutt.ly/4846uYf"
             }
         else:
             return {
-                "07:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
-                "09:35": "Системи реального часу-https://cutt.ly/4846uYf",
-                "11:25": "Системи реального часу-https://cutt.ly/4846uYf"
+                "06:45": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "08:35": "Системи реального часу-https://cutt.ly/4846uYf",
+                "10:25": "Системи реального часу-https://cutt.ly/4846uYf"
             }
     elif day == "Tuesday":
         if week % 2 != 0:
             return {
-                "07:45": "Конфліктологія-https://cutt.ly/G87qYD4",
-                "07:46": "Політологія-https://cutt.ly/v87wdvE",
-                "09:35": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
-                "11:25": "Системи реального часу-https://cutt.ly/4846uYf"
+                "06:45": "Конфліктологія-https://cutt.ly/G87qYD4",
+                "06:46": "Політологія-https://cutt.ly/v87wdvE",
+                "08:35": "Міжмашинна взаємодія-https://cutt.ly/H8TIIjF",
+                "10:25": "Системи реального часу-https://cutt.ly/4846uYf"
             }
         else:
             return {
-                "07:45": "Конфліктологія-https://cutt.ly/187qLhf",
-                "07:46": "Політологія-https://cutt.ly/U87wxf2",
-                "09:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF",
-                "11:25": "Системи реального часу-https://cutt.ly/4846uYf"
+                "06:45": "Конфліктологія-https://cutt.ly/187qLhf",
+                "06:46": "Політологія-https://cutt.ly/U87wxf2",
+                "08:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF",
+                "10:25": "Системи реального часу-https://cutt.ly/4846uYf"
             }
     elif day == "Wednesday":
         return {
-            "07:45": "Проектування МПС-https://cutt.ly/T8FHVOF"
+            "06:45": "Проектування МПС-https://cutt.ly/T8FHVOF"
         }
     elif day == "Thursday":
         if week % 2 != 0:
             return {
-                "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
-                "07:45": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
-                "09:35": "Системи реального часу-https://cutt.ly/4846uYf"
+                "04:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "06:45": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "08:35": "Системи реального часу-https://cutt.ly/4846uYf"
             }
         else:
             return {
-                "05:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
-                "07:45": "Проектування МПС-https://cutt.ly/e8FH6VR"
+                "04:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
+                "06:45": "Проектування МПС-https://cutt.ly/e8FH6VR"
             }
 
     elif day == "Friday":
         return {
-            "09:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
+            "08:35": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
         }
     else:
         return {}
@@ -649,7 +649,7 @@ def par(message):
 
     day = datetime.now().isoweekday()
     week = datetime.now().isocalendar().week + 1
-    time_before_send = time(11, 00, 00).strftime("%H:%M:%S")
+    time_before_send = time(10, 00, 00).strftime("%H:%M:%S")
     time_now = datetime.now().strftime("%H:%M:%S")
 
     if time_now > time_before_send and day != 5 and day != 6 and day != 7:
@@ -805,7 +805,7 @@ def callback_handler(call):
         cursor = con.cursor()
         day = datetime.now().isoweekday()
         week = datetime.now().isocalendar().week + 1
-        time_before_send = time(11, 00, 00).strftime("%H:%M:%S")
+        time_before_send = time(10, 00, 00).strftime("%H:%M:%S")
         time_now = datetime.now().strftime("%H:%M:%S")
 
         if time_now > time_before_send and day != 5 and day != 6 and day != 7:
