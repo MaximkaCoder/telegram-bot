@@ -101,11 +101,14 @@ def get_schedule_am_201(day):
             return {
                 "06:45": "Конфліктологія-https://cutt.ly/187qLhf",
                 "06:46": "Політологія-https://cutt.ly/U87wxf2",
+                "06:47": "Правове регулювання інформаційної діяльності-https://cutt.ly/J4HGQA8",
                 "08:35": "Системи реального часу-https://cutt.ly/4846uYf",
                 "10:25": "Теорія проектування ЕОМ-https://cutt.ly/E8EbpjF"
             }
     elif day == "Wednesday":
         return {
+            "04:55": "Політологія-https://cutt.ly/v87wdvE",
+            "04:56": "Правове регулювання інформаційної діяльності-https://cutt.ly/J4HGQA8",
             "06:45": "Проектування МПС-https://cutt.ly/T8FHVOF"
         }
     elif day == "Thursday":
