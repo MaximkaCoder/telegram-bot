@@ -121,7 +121,7 @@ def get_schedule_am_201(day):
         else:
             return {
                 "04:55": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh",
-                "08:45": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh"
+                "06:45": "Комп'ютерні системи штучного інтелекту-https://cutt.ly/x8Ev3Lh"
             }
     elif day == "Friday":
         return {
