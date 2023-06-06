@@ -2,7 +2,7 @@ FROM python:3.9
 USER root
 
 RUN /usr/local/bin/python -m pip install --upgrade pip
-RUN pip install db-sqlite3 requests pytelegrambotapi schedule
+RUN pip install db-sqlite3 requests pytelegrambotapi schedule openai
 
 COPY ./project /project
 WORKDIR project

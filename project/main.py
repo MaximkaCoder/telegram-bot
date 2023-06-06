@@ -8,8 +8,10 @@ import telebot
 from telebot import types
 import multiprocessing
 import time as tm
+import openai
 
 bot = telebot.TeleBot(config.TOKEN[0])
+openai.api_key = config.OPENAI_KEY
 
 admin_max = config.ADMIN_MAX
 admin_alina = config.ADMIN_ALINA
@@ -21,9 +23,10 @@ markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 item1 = types.KeyboardButton("📒Пари📒")
 item2 = types.KeyboardButton("‍🧑‍🎓Студенти🧑‍🎓")
 item3 = types.KeyboardButton("🕛Дзвоник🕛")
+item4 = types.KeyboardButton("🤖ChatGPT🤖")
 
 markup.row(item1, item2)
-markup.row(item3)
+markup.row(item3, item4)
 
 markup2 = types.InlineKeyboardMarkup()
 btn1 = types.InlineKeyboardButton("АМ-201", callback_data="1")
@@ -72,6 +75,21 @@ markup13 = types.ReplyKeyboardMarkup(resize_keyboard=True)
 item = types.KeyboardButton("Відправити")
 item2 = types.KeyboardButton("⬅НАЗАД")
 markup13.add(item, item2)
+
+
+def GPT(message):
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt="Якщо тебе спитають як тебе звати, то відповідай що тебе звати Шльопа." + message.text,
+        temperature=0.5,
+        max_tokens=1000,
+        top_p=1,
+        frequency_penalty=0.0,
+        presence_penalty=0.6,
+        stop=["You:"]
+    )
+
+    return response.choices[0].text.split('\n', 1)[1]
 
 
 def get_schedule_am_201(day):
@@ -675,6 +693,37 @@ def par(message):
             bot.send_message(message.chat.id, am_202_schedule_p.get(day), reply_markup=markup7, parse_mode='HTML')
 
 
+@bot.message_handler(func=lambda message: message.text == "🤖ChatGPT🤖" and message.chat.type == 'private')
+def hello_GPT(message):
+    bot.send_message(message.chat.id, "Я - ChatGPT, слухаю вас!", reply_markup=markup4)
+    start_talking_GPT(message)
+
+
+def start_talking_GPT(message):
+    bot.register_next_step_handler(message, talking_GPT)
+
+
+def talking_GPT(message):
+    if message.text != "⬅НАЗАД":
+        file = open("users_query.txt", "a+")
+        file.write(datetime.today().strftime("%d.%m.%Y") + " " + tm.strftime("%H:%M") + " user: "
+                   + str(message.from_user.username) + " query: " + message.text + "\n")
+        file.close()
+        arr = ['Думаю', 'Міркую', 'Кумекаю', 'Аналізую', 'Розмірковую']
+        phrase = random.randint(0, int(len(arr)) - 1)
+        msg = bot.send_message(message.chat.id, f"{arr[phrase]}...")
+        try:
+            text = GPT(message)
+            bot.edit_message_text(chat_id=msg.chat.id, message_id=msg.message_id, text=text)
+        except:
+            bot.edit_message_text(chat_id=msg.chat.id, message_id=msg.message_id, text="Сталася помилка! "
+                                                                                       "Можливо текст надто великий або "
+                                                                                       "сервіси OpenAI не відповідають.")
+        start_talking_GPT(message)
+    else:
+        ui(message)
+
+
 @bot.message_handler(func=lambda message: message.text == "‍🧑‍🎓Студенти🧑‍🎓" and message.chat.type == 'private')
 def profile7(message):
     bot.send_message(message.chat.id, "Обери групу!", reply_markup=markup2)
@@ -859,7 +908,7 @@ def reg_mess_admin(message):
 def solution_send(message):
     global id_from_user
     bot.send_message(message.chat.id, f"Користувачу з id {id_from_user} доступ відкритий!", reply_markup=markup)
-    bot.send_message(id_from_user, "Пароль: QWERTY20X", reply_markup=markup11)
+    bot.send_message(id_from_user, "Пароль: QWERTYAM20X", reply_markup=markup11)
 
 
 def starting_checking_201():
@@ -877,7 +926,7 @@ def starting_checking_201():
             for us in records:
                 try:
                     bot.send_message(us[0], f"Пара - {subject[0]}\nПосилання - {subject[1]}",
-                                     disable_web_page_preview=True, reply_markup=markup, parse_mode="HTML")
+                                     disable_web_page_preview=True, parse_mode="HTML")
                     tm.sleep(0.2)
                 except Exception:
                     print("error send")
